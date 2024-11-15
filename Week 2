@@ -1,0 +1,77 @@
+## Project: Virtual CPU Emulator
+## Week 2 Focus: Instruction Set Architecture (ISA)
+## Tasks & Deliverables
+1. Define Basic Instructions
+Arithmetic Instructions:
+
+ADD - Add two registers and store the result in a register.
+SUB - Subtract the contents of one register from another.
+MUL - Multiply two registers.
+DIV - Divide one register by another (integer division).
+Data Movement Instructions:
+
+LOAD - Load data from memory into a register.
+STORE - Store data from a register into memory.
+Logical Instructions:
+
+AND - Perform bitwise AND on two registers.
+OR - Perform bitwise OR on two registers.
+NOT - Perform bitwise NOT on a register.
+XOR - Perform bitwise XOR on two registers.
+Control Flow Instructions:
+
+JMP - Jump to a specific memory address.
+JZ - Jump if the zero flag is set.
+JNZ - Jump if the zero flag is not set.
+CMP - Compare two registers and set flags (zero, negative, etc.).
+System Instructions:
+
+NOP - No operation (used for timing or debugging).
+HLT - Halt the CPU.
+
+2. Document Instruction Formats
+Define a consistent binary format for each instruction. Example formats:
+
+Arithmetic and Logical Instructions:
+Opcode (4 bits) | Destination Register (4 bits) | Source Register 1 (4 bits) | Source Register 2 (4 bits)
+Example for ADD R1, R2, R3:
+0001 | 0001 | 0010 | 0011
+Data Movement Instructions:
+Opcode (4 bits) | Register (4 bits) | Memory Address (8 bits)
+Example for LOAD R1, 0x12:
+0100 | 0001 | 00010010
+0100 | 0001 | 00010010
+Control Flow Instructions:
+Opcode (4 bits) | Memory Address (12 bits)
+Example for JMP 0xABC:
+1100 | 101011110011
+
+3. Create a Simple Assembler
+Steps to Build:
+
+Input: The assembler should read an assembly code file (e.g., .asm).
+Example assembly code:
+LOAD R1, 0x10  
+ADD R1, R2, R3  
+STORE R1, 0x20  
+HLT  
+Parsing: Break down each line into components (opcode, operands).
+
+Instruction Encoding: Map each instruction to its binary equivalent based on the ISA.
+
+Output: Generate a machine code file (e.g., .bin).
+Example machine code:
+0100000100001000  
+0001000100100011  
+0101000100100000  
+1111000000000000  
+
+## Tools and Libraries:
+
+Programming Language: C++.
+File Handling: Use C++ libraries to read/write files.
+Data Structures: Maps for opcode and register encoding.
+## Deliverables:
+A document listing all instructions, their functionality, and binary formats.
+A working assembler implemented in C++ that converts assembly code to machine code.
+A set of test cases for validating the assembler (sample .asm and .bin files).
