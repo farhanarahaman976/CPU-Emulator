@@ -80,7 +80,7 @@ The assembler program translates human-readable assembly code into machine-reada
 **Behavior**:
 `Rdest = Rsrc1 | Rsrc2`
 **Example**:
-```Assembly: OR R1, R2, R3
+**Assembly**: `OR R1, R2, R3`
 **Machine Code**: `1000 0001 0010 0011`
 
 ### XOR (Bitwise XOR)
@@ -114,9 +114,8 @@ The assembler program translates human-readable assembly code into machine-reada
 **Machine Code**: `1011 0000 0010 0010`
 
 ## Document the Instruction Formats:
-Each instruction can have a specific format, often including the opcode and operands. Here’s a simple example:
+Each instruction can have a specific format, often including the opcode and operands. Here’s a simple example.
 
-|---------------------------------------------------------------------------------|
 | Instruction | Opcode | Format                    | Behavior                     |
 |-------------|--------|---------------------------|------------------------------|
 | ADD         | 0001   | ADD Rdest, Rsrc1, Rsrc2   | Rdest = Rsrc1 + Rsrc2        |
@@ -130,7 +129,6 @@ Each instruction can have a specific format, often including the opcode and oper
 | XOR         | 1001   | XOR Rdest, Rsrc1, Rsrc2   | Rdest = Rsrc1 ^ Rsrc2        |
 | NOT         | 1010   | NOT Rdest, Rsrc           | Rdest = ~Rsrc                |
 | JMP         | 1011   | JUMP MEM                  | PC = MEM                     |
-|_________________________________________________________________________________|
 
 #### Create a Simple Assembler:
 **Parser**: Read assembly code and parse each line to identify the instruction and operands.
