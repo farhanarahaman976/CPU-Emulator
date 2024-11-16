@@ -17,7 +17,6 @@ Welcome to the Virtual CPU Emulator project!This project builds a Virtual CPU Em
 - Department: Computer Science & Engineering
 - Instructor: Vashkar Kar (Lecturer)
 - Institute: Northern University of Business & Technology, Khulna
-- Website: www.nubtkhulna.ac.bd
   
  ## Project Scope
  To clearly outline the boundaries and goals of the emulator, ensuring focus and clarity throughout development
