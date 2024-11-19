@@ -6,15 +6,17 @@ The goal of this week is to implement the core components of a CPU. This include
 ### Overview
 The Program Counter (PC) and Instruction Register (IR) are critical components of the CPU's control flow, enabling it to fetch and execute instructions systematically.
 
-### Program Counter (PC): The Program Counter holds the memory address of the next instruction to be executed in the program sequence.
+### Program Counter (PC):
+The Program Counter holds the memory address of the next instruction to be executed in the program sequence.
 
-### Instruction Register (IR):  The Instruction Register holds the instruction currently being executed by the CPU.
+### Instruction Register (IR):  
+The Instruction Register holds the instruction currently being executed by the CPU.
 ## Program Structure:  
 ## Explanation:
 
 ### Program Counter (PC)
 •	**Initialization**: The PC is initialized to 0 in the CPU class constructor.
-•	**Fetching**: In the `fetchInstruction` method, the PC points to the memory address of the next instruction.
+- **Fetching**: In the `fetchInstruction` method, the PC points to the memory address of the next instruction.
 •	**Incrementing**: After fetching an instruction, the PC is incremented to point to the next instruction.
 
 ### Instruction Register (IR)
