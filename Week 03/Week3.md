@@ -12,6 +12,7 @@ The Program Counter holds the memory address of the next instruction to be execu
 ### Instruction Register (IR):  
 The Instruction Register holds the instruction currently being executed by the CPU.
 ## Program Structure:  
+https://github.com/farhanarahaman976/CPU-Emulator/blob/main/Week%2003/Week3.cpp
 ## Explanation:
 
 ### Program Counter (PC)
