@@ -83,9 +83,9 @@ General-purpose registers (GPRs) are essential components of a CPU, providing te
    - Multi-Ported: Allows simultaneous access, useful in superscalar or parallel CPUs.
 - **Number of Registers**:
    - Depends on the CPU architecture:
-       	Small-scale systems may have 8–16 registers.
-       	Modern architectures like x86-64 may have 16–32.
-       	RISC architectures may support 32 or more registers.
+       -	Small-scale systems may have 8–16 registers.
+       -	Modern architectures like x86-64 may have 16–32.
+       -	RISC architectures may support 32 or more registers.
 
 ### Advantages of General-Purpose Registers
 - **Speed**: Faster access compared to memory, enhancing overall CPU performance.
