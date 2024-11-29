@@ -7,9 +7,9 @@ This step retrieves instructions from memory based on the program counter (PC).
 
 ### Steps:
 - **Access Memory**: Use the value in the program counter (PC) as an address to fetch the next instruction from memory.
- - **Example**: `instruction = memory[PC];`
+  - **Example**: `instruction = memory[PC];`
 - **Increment the Program Counter**: After fetching, increment the PC to point to the next instruction.
- - **Example**: `PC += instruction_size;`
+  - **Example**: `PC += instruction_size;`
 - **Handle Memory Limits**: Ensure that the PC does not go beyond the allocated memory bounds.
   
 ### Key Components to Implement:
@@ -39,8 +39,8 @@ This step interprets the fetched instruction into its components (operation and 
   - **Example**: `(opcode, operand1, operand2) = decode(instruction);`
 - **Parse Operands**: Determine the type of operands (register, memory address, or immediate value).
 - **Instruction Format**: Decide on a consistent instruction format during ISA design. Example formats:
-- **R-type (Register)**: `Opcode | Rd | Rs | Rt`
-- **I-type (Immediate)**: `Opcode | Rd | Rs | Imm`
+  - **R-type (Register)**: `Opcode | Rd | Rs | Rt`
+  - **I-type (Immediate)**: `Opcode | Rd | Rs | Imm`
  
 ### Key Considerations:
 Use bit masking and shifting to extract instruction fields.
