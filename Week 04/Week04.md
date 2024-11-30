@@ -6,20 +6,6 @@ The Instruction Fetch-Decode-Execute Cycle is the fundamental operational proces
 This step retrieves instructions from memory based on the program counter (PC).
 
 ### Steps:
-- **Access Memory**: Use the value in the program counter (PC) as an address to fetch the next instruction from memory.
-  - **Example**: `instruction = memory[PC];`
-- **Increment the Program Counter**: After fetching, increment the PC to point to the next instruction.
-  - **Example**: `PC += instruction_size;`
-- **Handle Memory Limits**: Ensure that the PC does not go beyond the allocated memory bounds.
-  
-### Key Components to Implement:
-- **Program Counter (PC)**: A register that tracks the address of the next instruction.
-- **Memory Interface**: Functions or mechanisms to read from (and possibly write to) memory.
-
-## Instruction Fetching Mechanism
-This step retrieves instructions from memory based on the program counter (PC).
-
-### Steps:
 
 - **Access Memory**: Use the value in the program counter (PC) as an address to fetch the next instruction from memory.
   - **Example**: `instruction = memory[PC];`
@@ -45,7 +31,6 @@ This step interprets the fetched instruction into its components (operation and 
 ### Key Considerations:
 Use bit masking and shifting to extract instruction fields.
 Maintain a mapping of opcodes to specific operations.
-
 
 ##  Execute Instructions
 The CPU executes the decoded instruction using its components like the ALU, registers, or memory.
