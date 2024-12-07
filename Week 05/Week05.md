@@ -15,7 +15,7 @@
 - **Description**: Enable the virtual CPU to interact with memory for loading and storing data.
 - **Subtasks**:
   
-  - **Read Operation**: Create a method to retrieve data from a specified memory address.
+ - **Read Operation**: Create a method to retrieve data from a specified memory address.
  ```cpp
  uint8_t readMemory(uint16_t address);
  ```
