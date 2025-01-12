@@ -13,7 +13,7 @@
 
 - Design specific I/O instructions in the Instruction Set Architecture (ISA), such as:
   - **READ:** For reading input from the keyboard.
-  -**WRITE:** For writing output to the display.
+  - **WRITE:** For writing output to the display.
 - Update the instruction decoder to recognize and handle I/O instructions.
 - Integrate I/O functionality into the fetch-decode-execute cycle.
   
