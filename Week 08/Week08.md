@@ -1,7 +1,7 @@
-#Week 8: Performance Optimization
-##**Objective:** Optimize the emulator for better performance.
+# Week 8: Performance Optimization
+## Objective: Optimize the emulator for better performance.
 
-###Tasks & Breakdown
+### Tasks & Breakdown
 
 **1. Profile the Emulator to Identify Bottlenecks**
 - **Set Up Profiling Tools**: Use a profiler such as ``gprof``, ``Valgrind``, or ``Perf`` to analyze your C++ code.
