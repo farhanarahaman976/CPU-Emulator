@@ -1,4 +1,4 @@
-# Project CPU Emulator
+# CPU Emulator Project 
 ![image](https://github.com/user-attachments/assets/9167301b-66a5-4126-aee4-27813de07f58)
 
 ## Project Description 📝
