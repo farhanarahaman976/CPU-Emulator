@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 const unordered_map<string, string> OPCODES = {
     {"ADD", "0001"},
     {"SUB", "0010"},
@@ -35,7 +34,6 @@ string assembleInstruction(const string &instruction) {
     }
     binaryInstruction += OPCODES.at(opcode);
 
-
     if (REGISTERS.find(reg1) == REGISTERS.end()) {
         cerr << "Error: Unknown register " << reg1 << endl;
         return "";
@@ -43,10 +41,8 @@ string assembleInstruction(const string &instruction) {
     binaryInstruction += REGISTERS.at(reg1);
 
     if (REGISTERS.find(reg2_or_imm) != REGISTERS.end()) {
-
         binaryInstruction += REGISTERS.at(reg2_or_imm);
     } else {
-
         int immediateValue = stoi(reg2_or_imm);
         if (immediateValue < 0 || immediateValue > 15) {
             cerr << "Error: Immediate value out of range: " << reg2_or_imm << endl;
@@ -54,7 +50,6 @@ string assembleInstruction(const string &instruction) {
         }
         binaryInstruction += bitset<4>(immediateValue).to_string();
     }
-
 
     while (binaryInstruction.size() < 16) {
         binaryInstruction += "0";
@@ -64,7 +59,6 @@ string assembleInstruction(const string &instruction) {
 }
 
 int main() {
-
     vector<string> assemblyCode = {
         "LOAD R1 5",
         "ADD R1 R2",
@@ -78,13 +72,13 @@ int main() {
         return 1;
     }
 
-    cout << "Machine Code Output:" << endl;
+    cout << "Machine Code Output (8-bit format):" << endl;
 
     for (const string &instruction : assemblyCode) {
         string machineCode = assembleInstruction(instruction);
         if (!machineCode.empty()) {
-            cout << instruction << " -> " << machineCode << endl;
-            outFile << machineCode << endl;
+            cout << instruction << " -> " << machineCode.substr(0, 8) << " " << machineCode.substr(8, 8) << endl;
+            outFile << machineCode.substr(0, 8) << " " << machineCode.substr(8, 8) << endl;
         }
     }
 
