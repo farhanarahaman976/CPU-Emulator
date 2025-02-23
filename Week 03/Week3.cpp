@@ -1,185 +1,110 @@
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <string>
-
-class ALU {
-public:
-    int performOperation(const std::string& operation, int operand1, int operand2) {
-        if (operation == "ADD") return operand1 + operand2;
-        if (operation == "SUB") return operand1 - operand2;
-        if (operation == "AND") return operand1 & operand2;
-        if (operation == "OR") return operand1 | operand2;
-
-        std::cerr << "Unknown operation: " << operation << std::endl;
-        return 0;
-    }
-};
-
-class CPU {
-    int programCounter;
-    int instructionRegister;
-public:
-    CPU() : programCounter(0), instructionRegister(0) {}
-
-    int getPC() const { return programCounter; }
-    void setPC(int value) { programCounter = value; }
-
-    int getIR() const { return instructionRegister; }
-    void setIR(int value) { instructionRegister = value; }
-
-    void fetchInstruction(const std::vector<int>& memory) {
-        if (programCounter < memory.size()) {
-            instructionRegister = memory[programCounter];
-            programCounter++;
-        } else {
-            std::cerr << "Program Counter out of bounds!" << std::endl;
-        }
-    }
-};
-
-class Registers {
-    int reg[4];
-public:
-    Registers() {
-        for (int& r : reg) r = 0;
-    }
-
-    int getRegister(int index) const {
-        if (index >= 0 && index < 4) return reg[index];
-        std::cerr << "Invalid register index!" << std::endl;
-        return 0;
-    }
-
-    void setRegister(int index, int value) {
-        if (index >= 0 && index < 4) reg[index] = value;
-        else std::cerr << "Invalid register index!" << std::endl;
-    }
-};
-
-int main() {
-    ALU alu;
-    Registers regs;
-    CPU cpu;
-
-    std::vector<int> memory = {0x020301, 0x050602};
-
-    while (cpu.getPC() < memory.size()) {
-        cpu.fetchInstruction(memory);
-        int instruction = cpu.getIR();
-
-        int operand1 = (instruction & 0xFF0000) >> 16;
-        int operand2 = (instruction & 0x00FF00) >> 8;
-        int operationCode = instruction & 0x0000FF;
-
-
-        std::string operation;
-        if (operationCode == 0x01) operation = "ADD";
-        else if (operationCode == 0x02) operation = "SUB";
-        else {
-            std::cerr << "Unknown operation code: " << operationCode << std::endl;
-            continue;
-        }
-
-        int result = alu.performOperation(operation, operand1, operand2);
-
-
-        std::cout << "Instruction: 0x" << std::hex << instruction
-                  << " [" << operation << " " << operand1 << ", " << operand2 << "] "
-                  << "Result: " << std::dec << result << std::endl;
-    }
-
-    return 0;
-}
-#include <iostream>
-#include <vector>
+#include <unordered_map>
 #include <bitset>
-#include <string>
+using namespace std;
+
+unordered_map<string, int> opcodes = { {"ADD", 1}, {"SUB", 2}, {"LOAD", 3}, {"STORE", 4} };
+unordered_map<string, int> registers = { {"R0", 0}, {"R1", 1}, {"R2", 2}, {"R3", 3} };
+
+int assembleInstruction(const string &inst) {
+    istringstream iss(inst);
+    string op, reg, operandStr;
+    iss >> op >> reg >> operandStr;
+    int opcode = opcodes[op];
+    int regNum = registers[reg];
+    int operand = (registers.find(operandStr) != registers.end()) ? registers[operandStr] : stoi(operandStr);
+
+    return (regNum << 16) | ((operand & 0xFF) << 8) | (opcode & 0xFF);
+}
 
 class ALU {
 public:
-    int performOperation(const std::string& operation, int operand1, int operand2) {
-        if (operation == "ADD") return operand1 + operand2;
-        if (operation == "SUB") return operand1 - operand2;
-        if (operation == "AND") return operand1 & operand2;
-        if (operation == "OR") return operand1 | operand2;
-
-        std::cerr << "Unknown operation: " << operation << std::endl;
+    int perform(const string &op, int a, int b) {
+        if(op == "ADD") return a + b;
+        if(op == "SUB") return a - b;
         return 0;
     }
 };
 
 class CPU {
-    int programCounter;
-    int instructionRegister;
 public:
-    CPU() : programCounter(0), instructionRegister(0) {}
-
-    int getPC() const { return programCounter; }
-    void setPC(int value) { programCounter = value; }
-
-    int getIR() const { return instructionRegister; }
-    void setIR(int value) { instructionRegister = value; }
-
-    void fetchInstruction(const std::vector<int>& memory) {
-        if (programCounter < memory.size()) {
-            instructionRegister = memory[programCounter];
-            programCounter++;
-        } else {
-            std::cerr << "Program Counter out of bounds!" << std::endl;
-        }
+    int PC, IR;
+    CPU() : PC(0), IR(0) {}
+    void fetch(const vector<int>& mem) {
+        if(PC < mem.size()) { IR = mem[PC]; PC++; }
+        else { cerr << "PC out of bounds!" << endl; }
     }
 };
 
 class Registers {
-    int reg[4];
 public:
-    Registers() {
-        for (int& r : reg) r = 0;
-    }
-
-    int getRegister(int index) const {
-        if (index >= 0 && index < 4) return reg[index];
-        std::cerr << "Invalid register index!" << std::endl;
-        return 0;
-    }
-
-    void setRegister(int index, int value) {
-        if (index >= 0 && index < 4) reg[index] = value;
-        else std::cerr << "Invalid register index!" << std::endl;
-    }
+    int reg[4];
+    Registers() { for (int i = 0; i < 4; i++) reg[i] = 0; }
 };
 
-int main() {
+int main(){
+    vector<string> assembly = {
+        "LOAD R1 5",   
+        "LOAD R2 10", 
+        "ADD R1 R2",   
+        "SUB R2 R1",    
+        "STORE R1 20"   
+    };
+
+    vector<int> memory;
+    cout << "Assembled Machine Code (24-bit in 8-bit groups):" << endl;
+    for(auto &line : assembly) {
+        int code = assembleInstruction(line);
+        memory.push_back(code);
+        bitset<24> bs(code);
+        string s = bs.to_string();
+        cout << line << " -> " << s.substr(0,8) << " " << s.substr(8,8) << " " << s.substr(16,8) << endl;
+    }
+    cout << endl;
+
     ALU alu;
-    Registers regs;
     CPU cpu;
+    Registers regs;
 
-    std::vector<int> memory = {0b00000010'00000011'00000001, 0b00000101'00000110'00000010};
+    while(cpu.PC < memory.size()){
+        cpu.fetch(memory);
+        int instr = cpu.IR;
+        int regNum = (instr >> 16) & 0xFF;      
+        int operand = (instr >> 8) & 0xFF;      
+        int opcode = instr & 0xFF;                
 
-    while (cpu.getPC() < memory.size()) {
-        cpu.fetchInstruction(memory);
-        int instruction = cpu.getIR();
-
-        int operand1 = (instruction & 0xFF0000) >> 16;
-        int operand2 = (instruction & 0x00FF00) >> 8;
-        int operationCode = instruction & 0x0000FF;
-
-        std::string operation;
-        if (operationCode == 0x01) operation = "ADD";
-        else if (operationCode == 0x02) operation = "SUB";
+        string op;
+        if(opcode == 1) op = "ADD";
+        else if(opcode == 2) op = "SUB";
+        else if(opcode == 3) op = "LOAD";
+        else if(opcode == 4) op = "STORE";
         else {
-            std::cerr << "Unknown operation code: " << operationCode << std::endl;
+            cerr << "Unknown opcode: " << opcode << endl;
             continue;
         }
 
-        int result = alu.performOperation(operation, operand1, operand2);
-
-        std::cout << "Instruction: " << std::bitset<8>((instruction & 0xFF0000) >> 16) << " "
-                  << std::bitset<8>((instruction & 0x00FF00) >> 8) << " "
-                  << std::bitset<8>(instruction & 0x0000FF) << " "
-                  << " [" << operation << " " << std::bitset<8>(operand1) << ", "
-                  << std::bitset<8>(operand2) << "] "
-                  << "Result: " << std::bitset<8>(result) << std::endl;
+        if(op == "LOAD"){
+            regs.reg[regNum] = operand;
+            cout << "Executed LOAD: R" << regNum << " = " << bitset<8>(operand) << endl;
+        }
+        else if(op == "STORE"){
+            cout << "Executed STORE: R" << regNum << " value ("
+                 << bitset<8>(regs.reg[regNum]) << ") stored at address "
+                 << bitset<8>(operand) << endl;
+        }
+        else if(op == "ADD"){
+            int result = alu.perform(op, regs.reg[regNum], regs.reg[operand]);
+            regs.reg[regNum] = result;
+            cout << "Executed ADD: R" << regNum << " = " << bitset<8>(result) << endl;
+        }
+        else if(op == "SUB"){
+            int result = alu.perform(op, regs.reg[regNum], regs.reg[operand]);
+            regs.reg[regNum] = result;
+            cout << "Executed SUB: R" << regNum << " = " << bitset<8>(result) << endl;
+        }
     }
 
     return 0;
