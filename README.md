@@ -1,6 +1,5 @@
 # CPU Emulator Project 
-![Uploading image.png…]()
-
+![a Virtual CPU Emulator](https://github.com/user-attachments/assets/76a173f7-9fe1-420e-b93a-02d5dc6aee65)
 
 ## Project Description 📝
 
