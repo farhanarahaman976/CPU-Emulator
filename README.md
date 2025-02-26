@@ -1,6 +1,5 @@
 # CPU Emulator Project 
-![resized_white_background](https://github.com/user-attachments/assets/bd91100c-c635-4429-9152-bfc780417ed2)
-
+![resized_white_background_512](https://github.com/user-attachments/assets/aa559253-5685-4a4a-8df4-510b842fc230)
 
 ## Project Description 📝
 
